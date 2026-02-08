@@ -53,7 +53,6 @@ H, W = rgb.shape[:2]
 assert depth_resized.shape == (H, W)
 assert mask_resized.shape == (H, W)
 
-# %%
 # Sanity check — edges of depth should roughly match the RGB
 plt.figure(figsize=(10, 4))
 plt.subplot(1, 2, 1)
@@ -68,28 +67,24 @@ plt.axis("off")
 plt.tight_layout()
 plt.show()
 
-# %% [markdown]
 # # Step 3 — Define camera intrinsics
 #
 # Using a reasonable default focal length.  For real sensors replace with
 # calibrated values; for monocular depth this is approximate.
 
-# %%
 fx = fy = 500.0
 cx, cy = W / 2.0, H / 2.0
 K = build_intrinsics(fx, fy, cx, cy)
 
 print("Intrinsic matrix K:\n", K)
 
-# %% [markdown]
-# # Step 4 — Back-project depth → 3D points (camera frame)
-#
+# Step 4 — Back-project depth → 3D points (camera frame)
+
 # Camera model (OpenCV convention):
 # - +X → right,  +Y → down,  +Z → forward
 #
 # $$X = (u - c_x) \cdot Z / f_x, \quad Y = (v - c_y) \cdot Z / f_y$$
 
-# %%
 pts = depth_mask_to_points(depth_resized, mask_resized, K)
 
 print(f"Point cloud: {pts.shape[0]} points")
@@ -97,7 +92,6 @@ assert pts.shape[1] == 3
 assert np.all(np.isfinite(pts))
 assert pts.shape[0] > 100, "Mask too small or misaligned"
 
-# %%
 # Quick 3D visualisation
 fig = plt.figure(figsize=(6, 6))
 ax = fig.add_subplot(111, projection="3d")
@@ -109,10 +103,8 @@ ax.set_title("Raw point cloud (relative depth)")
 plt.tight_layout()
 plt.show()
 
-# %% [markdown]
 # # Step 5 — Compute 3D centroid
 
-# %%
 centroid = compute_centroid(pts)
 print("3D centroid (camera frame):", centroid)
 
@@ -132,13 +124,11 @@ ax.set_title("Point cloud with centroid")
 plt.tight_layout()
 plt.show()
 
-# %% [markdown]
 # # Step 6 — Scale to metric units
 #
-# Monocular depth is *relative* (unitless).  We recover metric scale using a
+# Monocular depth is relative (unitless).  We recover metric scale using a
 # known real-world height of the plant.
 
-# %%
 REAL_HEIGHT_M = 0.25  # plant is ~25 cm tall
 
 pts_metric, scale = scale_to_metric(pts, REAL_HEIGHT_M)

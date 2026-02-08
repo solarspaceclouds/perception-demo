@@ -14,9 +14,9 @@ from scipy.spatial.transform import Rotation
 
 from utils import make_T, draw_frame
 
-# Step 1 — Define poses in the world frame
+# Step 1: Define poses in the world frame
 
-# Camera: 1.5 m above ground, tilted 20° downward about X
+# Camera: 1.5m above ground, tilted 20 deg downward about X
 t_world_cam = np.array([0.0, 0.0, 1.5])
 R_world_cam = Rotation.from_euler("xyz", [20, 0, 0], degrees=True).as_matrix()
 
@@ -24,14 +24,14 @@ R_world_cam = Rotation.from_euler("xyz", [20, 0, 0], degrees=True).as_matrix()
 t_world_obj = np.array([0.3, 0.2, 0.0])
 R_world_obj = Rotation.from_euler("z", 45, degrees=True).as_matrix()
 
-# # Step 2 — Build SE(3) transformation matrices
+# # Step 2: Build SE(3) transformation matrices
 T_world_cam = make_T(R_world_cam, t_world_cam)
 T_world_obj = make_T(R_world_obj, t_world_obj)
 
 print("T_world_cam:\n", T_world_cam)
 print("T_world_obj:\n", T_world_obj)
 
-# # Step 3 — Transform object → camera frame
+# # Step 3: Transform object → camera frame
 T_cam_world = np.linalg.inv(T_world_cam)
 T_cam_obj = T_cam_world @ T_world_obj
 
@@ -40,7 +40,7 @@ t_cam_obj = T_cam_obj[:3, 3]
 
 print("Object position in camera frame:", t_cam_obj)
 
-# # Step 4 — Visualise all frames in the world
+# # Step 4: Visualise all frames in the world
 
 fig = plt.figure(figsize=(8, 8))
 ax = fig.add_subplot(111, projection="3d")
@@ -59,7 +59,7 @@ ax.set_title("World, Camera, and Object frames")
 plt.tight_layout()
 plt.show()
 
-# # Step 5 — Visualise object in the camera frame
+# # Step 5: Visualise object in camera frame
 
 fig = plt.figure(figsize=(8, 8))
 ax = fig.add_subplot(111, projection="3d")
