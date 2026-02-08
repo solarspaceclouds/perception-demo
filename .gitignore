@@ -1,0 +1,6 @@
+# Ignore models directory
+models/
+
+# Ignore output directory
+output/
+
