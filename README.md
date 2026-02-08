@@ -98,15 +98,13 @@ python scripts/pose_cad_reprojection_diagnostics.py
 python scripts/failure_analysis.py
 ```
 
-Or open a script in VS Code / Cursor and run cells interactively (`# %%` markers).
-
-The Jupyter notebooks in `notebooks/` provide the same content in notebook form.
+The Jupyter notebooks in `notebooks/` provide the same content in notebook form (To be updated).
 
 ## Demo Details
 
 ### Demo 1: Coordinate Frame Transformations
 
-Introduces SE(3) homogeneous transformation matrices. Defines camera and object poses in the world frame, computes the object-to-camera transform $T_{\text{cam\_obj}} = T_{\text{cam\_world}} \cdot T_{\text{world\_obj}}$, and visualises all three coordinate frames in 3D.
+Introduces SE(3) homogeneous transformation matrices. Defines camera and object poses in the world frame, computes the object-to-camera transform `T_{cam_obj} = T_{cam_world} · T_{world_obj}`, and visualises all three coordinate frames in 3D.
 
 ### Demo 2: RGB-D Geometry
 
